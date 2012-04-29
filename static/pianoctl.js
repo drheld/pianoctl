@@ -1,10 +1,18 @@
 $(document).ready(function() {
+  // When the form  is clicked on, don't actually submit -- just send message.
   $('#form').submit(function() {
     $.post('ajax.html', { text: $('#text').val() });
     $('#text').val('');
     return false;
   });
+  $('#text').focus(function() {
+    if (this.value == "Type manual commands here...") {
+      $(this).val("");
+    }
+  });
 
+
+  // Send command when buttons are clicked on.
   $('td').click(function() {
     $.post('ajax.html', { text: $(this).attr('command') });
   });

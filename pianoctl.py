@@ -59,15 +59,12 @@ class AjaxHandler(tornado.web.RequestHandler):
 def CEscape(text):
   def escape(c):
     o = ord(c)
-    if o == 10: return r"\n"   # optional escape
-    if o == 13: return r"\r"   # optional escape
-    if o ==  9: return r"\t"   # optional escape
-    if o == 39: return r"\'"   # optional escape
-
-    if o == 34: return r'\"'   # necessary escape
-    if o == 92: return r"\\"   # necessary escape
-
-    # necessary escapes
+    if o == 10: return r"\n"
+    if o == 13: return r"\r"
+    if o ==  9: return r"\t"
+    if o == 39: return r"\'"
+    if o == 34: return r'\"'
+    if o == 92: return r"\\"
     if (o >= 127 or o < 32): return "\\%03o" % o
     return c
   return "".join([escape(c) for c in text])
