@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+   <head>
+      <title>Pandora Control</title>
+      <script type="text/javascript" src="static/jquery.js"></script>
+      <script type="text/javascript" src="static/pianoctl.js"></script>
+      <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+      <link rel="stylesheet" type="text/css" href="static/styles.css" />
+   </head>
+
+   <body>
+     <div id="controls">
+       <table>
+         <tr>
+           <td id="playpause" command='p'>▶ / ❚❚</td>
+           <td id="love" command='+'>Love</td>
+         </tr>
+         <tr>
+           <td id="skip" command='n'>Skip</td>
+           <td id="hate" command='-'>Hate</td>
+         </tr>
+       </table>
+       <form id="form">
+         <input id="text" />
+       </form>
+     </div>
+
+     <div id="logs">
+       <pre id="logmessages">
+         {% for log in logs %}
+         {{ log }}{% end %}
+       </pre>
+     </div>
+   </body>
+ </html>
