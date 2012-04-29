@@ -23,7 +23,7 @@ class MainHandler(tornado.web.RequestHandler):
   def get(self):
     global logs
     flattened_logs = '\n'.join(logs) + '\n' + recent
-    self.render("pianoctl.html", logs=logs)
+    self.render("pianoctl.html", logs=flattened_logs)
 
 
 class AjaxHandler(tornado.web.RequestHandler):
@@ -49,15 +49,14 @@ class AjaxHandler(tornado.web.RequestHandler):
   def new_logs(self):
     try:
       global logs
-      flattened_logs = '\n'.join(logs)
-      self.write(flattened_logs + '\n' + recent)
+      flattened_logs = '\n'.join(logs) + '\n' + recent
+      self.write(flattened_logs)
       self.finish()
     except:
       pass
 
 
-
-def CEscape(text, as_utf8):
+def CEscape(text):
   def escape(c):
     o = ord(c)
     if o == 10: return r"\n"   # optional escape
@@ -69,9 +68,19 @@ def CEscape(text, as_utf8):
     if o == 92: return r"\\"   # necessary escape
 
     # necessary escapes
-    if not as_utf8 and (o >= 127 or o < 32): return "\\%03o" % o
+    if (o >= 127 or o < 32): return "\\%03o" % o
     return c
   return "".join([escape(c) for c in text])
+
+
+def clean_line(line):
+  line = line.replace('[2K', '')
+  line = line.replace('\033', '')
+  cr = line[:-1].rfind('\r')
+  if cr > 0:
+    return line[cr+1:]
+  return line
+
 
 def pandora_output(fd, events):
   global logs
@@ -82,17 +91,12 @@ def pandora_output(fd, events):
 
   pieces = re.split('\n', recent)
   for piece in pieces[:-1]:
-    # Hack. Skip long introductory line.
-    if piece.find('Press ? for a list of commands.') == -1:
-      logs.append(piece.replace('\x1b[2K', ''))
+    logs.append(clean_line(piece))
 
-  recent = pieces[-1]
-  cr = recent[:-1].rfind('\r')
-  if cr > 0:
-    recent = recent[cr+1:]
+  recent = clean_line(pieces[-1])
 
-  # Keep the most recent 20 log entries.
-  logs = logs[-29:]
+  # Keep the most recent 35 log entries (34 here + 1 recent).
+  logs = logs[-34:]
 
   global waiting
   to_notify = waiting

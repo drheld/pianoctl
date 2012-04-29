@@ -9,7 +9,8 @@ $(document).ready(function() {
     $.post('ajax.html', { text: $(this).attr('command') });
   });
 
-  waitForUpdate();
+  // Defer waitForUpdate so android browser thinks page is fully lodaed.
+  setTimeout('waitForUpdate()', '10');
 });
 
 function waitForUpdate() {
