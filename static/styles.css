@@ -19,12 +19,12 @@
 #controls table td {
   border: 2px solid black;
   text-align: center;
+  height: 35px;
   width: 50%;
 }
 
 #controls .button {
   font-size: 200%;
-  float: left;
   width: 45%;
   padding: 1px 1px 1px 1px;
 t}
@@ -43,7 +43,14 @@ t}
 
 #logs {
   position: absolute;
-  overflow: auto;
+  overflow: scroll;
+  font-family: monospace;
   top: 115px;
   bottom: 0px;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+#logs pre {
+  white-space: pre-wrap;
 }

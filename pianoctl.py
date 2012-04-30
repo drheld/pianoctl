@@ -41,8 +41,11 @@ class AjaxHandler(tornado.web.RequestHandler):
     except:
       pass
 
-    if command != '':
-      stdin.write(command + '\n')
+    #if len(command) == 1 and command.isalpha():
+    #  stdin.write(command)
+    #elif command != '':
+    #  stdin.write(command + '\n')
+    stdin.write(command + '\n')
 
     self.finish()
 
@@ -92,8 +95,8 @@ def pandora_output(fd, events):
 
   recent = clean_line(pieces[-1])
 
-  # Keep the most recent 35 log entries (34 here + 1 recent).
-  logs = logs[-34:]
+  # Keep the most recent 50 log entries (49 here + 1 recent).
+  logs = logs[-49:]
 
   global waiting
   to_notify = waiting
