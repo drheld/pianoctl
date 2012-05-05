@@ -41,11 +41,10 @@ class AjaxHandler(tornado.web.RequestHandler):
     except:
       pass
 
-    #if len(command) == 1 and command.isalpha():
-    #  stdin.write(command)
-    #elif command != '':
-    #  stdin.write(command + '\n')
-    stdin.write(command + '\n')
+    if len(command) == 1 and command.isalpha():
+      stdin.write(command)
+    elif command != '':
+      stdin.write(command + '\n')
 
     self.finish()
 
