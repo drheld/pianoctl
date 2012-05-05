@@ -6,6 +6,7 @@ $(document).ready(function() {
   $('#form').submit(function() {
     $.post('ajax.html', { text: $('#text').val() });
     $('#text').val('');
+    scrollToBottom();
     return false;
   });
   $('#text').focus(function() {
@@ -17,10 +18,11 @@ $(document).ready(function() {
   // Send command when buttons are clicked on.
   $('td').click(function() {
     $.post('ajax.html', { text: $(this).attr('command') });
+    scrollToBottom();
   });
 
   // Defer waitForUpdate so android browser thinks page is fully lodaed.
-  setTimeout('waitForUpdate()', '10');
+  setTimeout('waitForUpdate()', '1000');
 
   $(window).blur(function() {
     focused = false;
@@ -29,7 +31,16 @@ $(document).ready(function() {
     focused = true;
     if (!running) waitForUpdate();
   });
+
+  scrollToBottom();
+  $(window).resize(function() {
+    scrollToBottom();
+  });
 });
+
+function scrollToBottom() {
+  $('#logs').scrollTop($(document).height());
+}
 
 function waitForUpdate() {
   if (focused == false) {

@@ -122,6 +122,7 @@ def main():
 
   loop = tornado.ioloop.IOLoop.instance()
 
+  # TODO(drheld): poll for this being closed and restart -- also add a quit command
   p = subprocess.Popen(['../pianobar/pianobar'], stdout=subprocess.PIPE, stdin=subprocess.PIPE)
   fd = p.stdout.fileno()
   stdin = p.stdin
