@@ -40,12 +40,14 @@ class AjaxHandler(tornado.web.RequestHandler):
 
     command = ''
     try:
-      command = self.get_argument('text');
+      command = self.get_argument('text')
     except:
       pass
 
     if len(command) == 1 and command.isalpha():
       stdin.write(command)
+    elif command == 'sleep':
+      os.system('pmset sleepnow')
     else:
       stdin.write(command + '\n')
 
