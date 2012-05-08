@@ -2,3 +2,7 @@ A tornado-based web frontend for pianobar (command line pandora client).
 
 This is meant to be used from a mobile phone to control a computer
 hooked up to speakers.
+
+Dependencies:
+ - pianobar (brew install pianobar)
+ - /opt/local/bin/easy_install-2.6 appscript
