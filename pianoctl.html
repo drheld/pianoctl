@@ -22,13 +22,17 @@
            </tr>
          </tbody>
        </table>
+       <div id="volume">
+         <hr />
+       </div>
        <div id="textinput">
          <form id="form">
-           <input id="volume" type="range" name="volume" min="0" max="100" value="{{ volume }}" />
            <input id="text" value="Type manual commands here..." />
          </form>
        </div>
      </div>
+
+     <div id="volumepos"></div>
 
      <div id="logs">
        <pre id="logmessages">{{ logs }}</pre>

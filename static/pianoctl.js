@@ -24,8 +24,10 @@ $(document).ready(function() {
 
 
   // Update the volume when clicked.
-  $("#volume").live('change', function(){
-    $.get('volume.html', { level: $(this).val() });
+  $('#volume').click(function(e) {
+    $('#volumepos').css('left', e.pageX);
+    var scaled = Math.round(100 * e.pageX / $('hr').width());
+    $.get('volume.html', { level: scaled });
   });
 
   // Defer waitForUpdate so android browser thinks page is fully lodaed.

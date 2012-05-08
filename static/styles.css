@@ -41,9 +41,24 @@
   border: 0;
   height: 20px;
 }
+
 #volume {
   width: 100%;
   height: 15px;
+  cursor: pointer;
+}
+#volumepos {
+  width: 6px;
+  height: 15px;
+  top: 90px;
+  background-color: #751919;
+  position: absolute;
+}
+hr {
+  width: 98%;
+  height: 3px;
+  border-color: black;
+  background-color: #751919;
 }
 
 #logs {
