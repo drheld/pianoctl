@@ -24,11 +24,8 @@ $(document).ready(function() {
 
 
   // Update the volume when clicked.
-  $('#volume').click(function(e) {
-    $('#volumepos').css('left', e.pageX);
-    var scaled = Math.round(100 * e.pageX / $('hr').width());
-    $.get('volume.html', { level: scaled });
-  });
+  $('#volume').click(function(e) { volumeChange(e) });
+  $('#volumepos').click(function(e) { volumeChange(e) });
   // And set the initial position.
   $('#volumepos').css('left', $('#initialvolume').text());
 
@@ -48,6 +45,12 @@ $(document).ready(function() {
     scrollToBottom();
   });
 });
+
+function volumeChange(e) {
+  $('#volumepos').css('left', e.pageX);
+  var scaled = Math.round(100 * e.pageX / $('hr').width());
+  $.get('volume.html', { level: scaled });
+}
 
 function scrollToBottom() {
   $('#logs').scrollTop(10000000);
