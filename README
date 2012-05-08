@@ -5,4 +5,5 @@ hooked up to speakers.
 
 Dependencies:
  - pianobar (brew install pianobar)
- - /opt/local/bin/easy_install-2.6 appscript
+ - easy_install appscript
+ - easy_install tornado
