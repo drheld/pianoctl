@@ -29,6 +29,8 @@ $(document).ready(function() {
     var scaled = Math.round(100 * e.pageX / $('hr').width());
     $.get('volume.html', { level: scaled });
   });
+  // And set the initial position.
+  $('#volumepos').css('left', $('#initialvolume').text());
 
   // Defer waitForUpdate so android browser thinks page is fully lodaed.
   setTimeout('waitForUpdate()', '1000');
