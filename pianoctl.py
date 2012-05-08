@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import osax
 import re
 import subprocess
 
@@ -17,13 +18,15 @@ logs = []
 recent = ''
 stdin = None
 waiting = set()
+sa = osax.OSAX()
 
 
 class MainHandler(tornado.web.RequestHandler):
   def get(self):
     global logs
     flattened_logs = '\n'.join(logs) + '\n' + recent
-    self.render("pianoctl.html", logs=flattened_logs)
+    volume = sa.get_volume_settings()[osax.k.output_volume] * (20/14.0)
+    self.render("pianoctl.html", logs=flattened_logs, volume=volume)
 
 
 class AjaxHandler(tornado.web.RequestHandler):
@@ -56,6 +59,12 @@ class AjaxHandler(tornado.web.RequestHandler):
       self.finish()
     except:
       pass
+
+
+class VolumeHandler(tornado.web.RequestHandler):
+  def get(self):
+    level = int(self.get_argument('level'))
+    sa.set_volume(level / 20.0)
 
 
 def CEscape(text):
@@ -111,6 +120,7 @@ def main():
   handlers = [
     (r"/", MainHandler),
     (r"/ajax.html", AjaxHandler),
+    (r"/volume.html", VolumeHandler),
   ]
   settings = dict(
     static_path=os.path.join(os.path.dirname(__file__), "static"),

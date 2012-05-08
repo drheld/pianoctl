@@ -13,12 +13,19 @@ $(document).ready(function() {
     if (this.value == "Type manual commands here...") {
       $(this).val("");
     }
+    scrollToBottom();
   });
 
   // Send command when buttons are clicked on.
   $('td').click(function() {
     $.post('ajax.html', { text: $(this).attr('command') });
     scrollToBottom();
+  });
+
+
+  // Update the volume when clicked.
+  $("#volume").live('change', function(){
+    $.get('volume.html', { level: $(this).val() });
   });
 
   // Defer waitForUpdate so android browser thinks page is fully lodaed.
@@ -39,7 +46,7 @@ $(document).ready(function() {
 });
 
 function scrollToBottom() {
-  $('#logs').scrollTop($(document).height());
+  $('#logs').scrollTop(10000000);
 }
 
 function waitForUpdate() {
