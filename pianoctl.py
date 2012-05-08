@@ -25,7 +25,7 @@ class MainHandler(tornado.web.RequestHandler):
   def get(self):
     global logs
     flattened_logs = '\n'.join(logs) + '\n' + recent
-    volume = sa.get_volume_settings()[osax.k.output_volume] * (20/14.0)
+    volume = sa.get_volume_settings()[osax.k.output_volume]
     self.render("pianoctl.html", logs=flattened_logs, volume=volume)
 
 
@@ -46,7 +46,7 @@ class AjaxHandler(tornado.web.RequestHandler):
 
     if len(command) == 1 and command.isalpha():
       stdin.write(command)
-    elif command != '':
+    else:
       stdin.write(command + '\n')
 
     self.finish()
@@ -64,7 +64,7 @@ class AjaxHandler(tornado.web.RequestHandler):
 class VolumeHandler(tornado.web.RequestHandler):
   def get(self):
     level = int(self.get_argument('level'))
-    sa.set_volume(level / 20.0)
+    sa.set_volume(level / 14.0)
 
 
 def CEscape(text):
