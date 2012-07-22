@@ -17,9 +17,27 @@ $(document).ready(function() {
   });
 
   // Send command when buttons are clicked on.
-  $('td').click(function() {
-    $.post('ajax.html', { text: $(this).attr('command') });
+  $('#playpause').click(function() {
+    $.post('ajax.html', { text: 'p' });
     scrollToBottom();
+  });
+  $('#skip').click(function() {
+    $.post('ajax.html', { text: 'n' });
+    scrollToBottom();
+  });
+
+  // Verify more significant commands.
+  $('#love').click(function() {
+    if (confirm("Are you sure you want to love the song?")) {
+      $.post('ajax.html', { text: '+' });
+      scrollToBottom();
+    }
+  });
+  $('#hate').click(function() {
+    if (confirm("Are you sure you want to hate the song?")) {
+      $.post('ajax.html', { text: '-' });
+      scrollToBottom();
+    }
   });
 
 
